@@ -2,7 +2,7 @@
  
 This example app shows how to CI/CD a [Spring Boot](https://spring.io/projects/spring-boot) and [Ionic](https://ionicframework.com/) PWA using [Jenkins X](https://jenkins-x.io) and [Kubernetes](https://kubernetes.io/).
 
-<a href="https://jenkins-x.io"><img src="static/jenkins-x.svg" alt="Jenkins X" width="300"></a>
+<a href="https://jenkins-x.io"><img src="static/jenkins-x.svg" alt="Jenkins X" width="150"></a>
 
 Please read [Add CI/CD to Your Spring Boot App with Jenkins X and Kubernetes]() to learn how to continuously test and deploy this application using Jenkins X.
 
