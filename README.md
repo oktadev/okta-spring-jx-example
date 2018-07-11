@@ -1,6 +1,8 @@
 # CI/CD for Spring Boot with Jenkins X and Kubernetes
  
-This example app shows how to CI/CD a [Spring Boot](https://spring.io/projects/spring-boot) and [Angular](https://angular.io) app using [Jenkins X](https://jenkins-x.io) and [Kubernetes](https://kubernetes.io/).
+This example app shows how to CI/CD a [Spring Boot](https://spring.io/projects/spring-boot) and [Ionic](https://ionicframework.com/) PWA using [Jenkins X](https://jenkins-x.io) and [Kubernetes](https://kubernetes.io/).
+
+![Jenkins X](static/jenkins-x.svg)
 
 Please read [Add CI/CD to Your Spring Boot App with Jenkins X and Kubernetes]() to learn how to continuously test and deploy this application using Jenkins X.
 
@@ -43,6 +45,12 @@ To package everything into a single JAR for deployment, run the following comman
 ./mvnw package -Pprod
 ```
 
+You can also run all the end-to-end tests using a similar technique.
+
+```bash
+./mvnw package -Pprod,e2e
+```
+
 ### Setup Okta
 
 The first thing you’ll need to do is add a `holdings` attribute to your organization’s user profiles. Log in to the Okta Developer Console, then navigate to **Users** > **Profile Editor**. Click on **Profile** for the first profile in the table. You can identify it by its Okta logo. Click **Add Attribute** and use the following values:
@@ -70,24 +78,20 @@ Open `holdings-api/src/main/resources/application.yml` and add your API token as
 ```properties
 okta:
   client:
-    orgUrl: https://{yourOktaDomain}.com
+    orgUrl: https://{yourOktaDomain}
     token: XXX
 security:
     oauth2:
         client:
-            access-token-uri: https://{yourOktaDomain}.com/oauth2/default/v1/token
-            user-authorization-uri: https://{yourOktaDomain}.com/oauth2/default/v1/authorize
+            access-token-uri: https://{yourOktaDomain}om/oauth2/default/v1/token
+            user-authorization-uri: https://{yourOktaDomain}/oauth2/default/v1/authorize
             client-id: {yourClientId}
             client-secret: {yourClientSecret}
             scope: openid profile email
         resource:
-            user-info-uri: https://{yourOktaDomain}.com/oauth2/default/v1/userinfo
+            user-info-uri: https://{yourOktaDomain}/oauth2/default/v1/userinfo
 ```
 
-<!-- okta.oauth2.orgUrl=https://{yourOktaDomain}.com
-okta.oauth2.issuer=https://{yourOktaDomain}.com/oauth2/default
-okta.oauth2.clientId={yourClientId}
-okta.client.token=XXX -->
 ## Links
 
 This example uses the following libraries provided by Okta:
@@ -97,7 +101,7 @@ This example uses the following libraries provided by Okta:
 
 ## Help
 
-Please post any questions as comments on the [blog post](), or visit our [Okta Developer Forums](https://devforum.okta.com/). You can also email developers@okta.com if would like to create a support ticket.
+Please post any questions as comments on the [blog post](), or visit our [Okta Developer Forums](https://devforum.okta.com/). You can also email developers@okta.com if you would like to create a support ticket.
 
 ## License
 
