@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>
+      cryptoPWA
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="addHolding()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <h1 *ngIf="name">Welcome, {{ name }}</h1>
+  <div class="message" *ngIf="!holdingsProvider.holdings.length">
+    <p><strong>cryptoPWA</strong> is a <strong>P</strong>rogressive <strong>W</strong>eb <strong>A</strong>pplication
+      that allows you to keep track of the approximate worth of your cryptocurrency portfolio.</p>
+
+    <p>Click the button below to start tracking your coins in whatever currency you wish!</p>
+
+    <button ion-button full (click)="addHolding()" color="primary">Add Coins</button>
+  </div>
+
+  <ion-refresher *ngIf="holdingsProvider.holdings.length" (ionRefresh)="refreshPrices($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <p class="message" *ngIf="holdingsProvider.pricesUnavailable">
+    Could not fetch rates. Make sure you are connected to the internet or try again later.
+  </p>
+
+  <ion-list no-lines>
+    <ion-item-sliding *ngFor="let holding of holdingsProvider.holdings">
+      <ion-item class="holding">
+        <p><strong>{{ holding.crypto }}/{{ holding.currency }}</strong></p>
+        <p class="amount"><strong>Coins:</strong> {{ holding.amount }} <strong>Value:</strong> {{ holding.value }}</p>
+        <p *ngIf="holding.value > 0" class="value">{{ holding.amount * holding.value }}</p>
+      </ion-item>
+      <ion-item-options>
+        <button ion-button icon-only color="danger" (click)="holdingsProvider.removeHolding(holding)">
+          <ion-icon name="trash"></ion-icon>
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+  <!-- note: need to run build after adding id=logout -->
+  <button ion-button (click)="logout()" id="logout">Logout</button>
+</ion-content>
+
+<ion-footer padding>
+  <p><strong>Disclaimer:</strong> Do not use this application to make investment decisions. Displayed prices may not
+    reflect actual prices.</p>
+</ion-footer>

@@ -1,0 +1,12 @@
+{
+  "name": "cryptopwa",
+  "app_id": "",
+  "type": "ionic-angular",
+  "integrations": {},
+  "proxies": [
+    {
+      "path": "/api",
+      "proxyUrl": "http://localhost:8080/api"
+    }
+  ]
+}
