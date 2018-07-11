@@ -34,7 +34,7 @@ pipeline {
 
           dir ('./charts/preview') {
            container('maven') {
-             sh "make $OKTA_CLIENT_TOKEN=\$OKTA_CLIENT_TOKEN preview"
+             sh "make OKTA_CLIENT_TOKEN=\$OKTA_CLIENT_TOKEN preview"
              sh "jx preview --app $APP_NAME --dir ../.."
            }
           }
