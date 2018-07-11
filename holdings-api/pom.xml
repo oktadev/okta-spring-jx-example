@@ -25,6 +25,9 @@
         <okta.version>0.5.0</okta.version>
         <frontend-maven-plugin.version>1.6</frontend-maven-plugin.version>
         <node.version>v8.10.0</node.version>
+        <exec-maven-plugin.version>1.6.0</exec-maven-plugin.version>
+        <appId>default</appId>
+        <redirectUri>override-me</redirectUri>
     </properties>
 
     <dependencies>
@@ -194,6 +197,26 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>${exec-maven-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>add-redirect</id>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <mainClass>com.okta.developer.cli.AppRedirectUriManager</mainClass>
+                    <classpathScope>test</classpathScope>
+                    <arguments>
+                        <argument>appId ${appId} redirectUri ${redirectUri}</argument>
+                    </arguments>
+                </configuration>
             </plugin>
         </plugins>
     </build>

@@ -33,10 +33,21 @@ pipeline {
           }
 
           dir ('./charts/preview') {
-           container('maven') {
-             sh "make OKTA_CLIENT_TOKEN=\$OKTA_CLIENT_TOKEN preview"
-             sh "jx preview --app $APP_NAME --dir ../.."
-           }
+            container('maven') {
+              sh "make OKTA_CLIENT_TOKEN=\$OKTA_CLIENT_TOKEN preview"
+              sh "jx preview --app $APP_NAME --dir ../.."
+            }
+          }
+
+          // Add redirect URI in Okta
+          dir ('./holdings-api') {
+            container('maven') {
+              sh '''
+                yum install -y jq
+                previewURL=$(jx get preview -o json|jq  -r ".items[].spec | select (.previewGitInfo.name==\\"$CHANGE_ID\\") | .previewGitInfo.applicationURL")
+                mvn exec:java@add-redirect -DappId=$OKTA_APP_ID -DredirectUri=$previewURL
+              '''
+            }
           }
         }
       }
