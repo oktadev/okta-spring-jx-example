@@ -1,16 +1,10 @@
-# Spring Boot, Angular, and OAuth's 🥇 Standard: Authorization Code Flow!
+# CI/CD for Spring Boot with Jenkins X and Kubernetes
  
-This example app shows how to use [Spring Boot](https://spring.io/projects/spring-boot) and [Angular](https://angular.io) in a singular artifact.
+This example app shows how to CI/CD a [Spring Boot](https://spring.io/projects/spring-boot) and [Angular](https://angular.io) app using [Jenkins X](https://jenkins-x.io) and [Kubernetes](https://kubernetes.io/).
 
-> Make JAR, not WAR! -- [Josh Long](https://twitter.com/starbuxman)
-
-If you want to be a kick-ass developer, you should write tests. I know it sucks and it seems like it sucks the life out of you, but it's totally worthwhile in the end. If you expect a system or example to live on the internet for more than a year, it needs automated nightly tests to prove it.
-
-Please read [Deploy Your Secure Spring Boot + Angular PWA as a Single Artifact](https://developer.okta.com/blog/2018/06/18/spring-boot-angular-auth-code-flow) to learn more about the app you're about to make into an _awesome artifact_.
+Please read [Add CI/CD to Your Spring Boot App with Jenkins X and Kubernetes]() to learn how to continuously test and deploy this application using Jenkins X.
 
 **Prerequisites:** [Java 8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) and [Node.js](https://nodejs.org/).
-
-> Note: I challenge you to install Java 11 and make it work with this example. I'll send you a free 🍺 somehow!
 
 > [Okta](https://developer.okta.com/) has Authentication and User Management APIs that reduce development time with instant-on, scalable user infrastructure. Okta's intuitive API and expert support make it easy for developers to authenticate, manage, and secure users and roles in any application.
 
@@ -24,8 +18,8 @@ Please read [Deploy Your Secure Spring Boot + Angular PWA as a Single Artifact](
 To install this example application, run the following commands:
 
 ```bash
-git clone https://github.com/oktadeveloper/okta-spring-boot-angular-auth-code-flow-example.git spring-rocks
-cd spring-rocks
+git clone https://github.com/oktadeveloper/okta-spring-jx-example.git okta-jenkinsx
+cd okta-jenkinsx
 ```
 
 This will get a copy of the project installed locally. To install all of its dependencies and start each app, follow the instructions below.
@@ -59,7 +53,7 @@ The first thing you’ll need to do is add a `holdings` attribute to your organi
 
 You will need to [create an API Token and OIDC App](https://developer.okta.com/blog/2018/01/23/replace-local-storage-with-okta-profile-attributes#create-an-api-token) to get your values to perform authentication. 
 
-Log in to your Okta Developer account (or [sign up](https://developer.okta.com/signup/) if you don’t have an account) and navigate to **Applications** > **Add Application**. Click **Single-Page App**, click **Next**, and give the app a name you’ll remember. Click **Done**.
+Log in to your Okta Developer account (or [sign up](https://developer.okta.com/signup/) if you don’t have an account) and navigate to **Applications** > **Add Application**. Click **Web**, click **Next**, and give the app a name you’ll remember. Click **Done**. You'll need the client ID and client secret on the resulting screen below.
 
 For the Okta Java SDK to talk to Okta’s API, you’ll need to create an API token. The abbreviated steps are as follows:
 
@@ -103,7 +97,7 @@ This example uses the following libraries provided by Okta:
 
 ## Help
 
-Please post any questions as comments on the [blog post](https://developer.okta.com/blog/2018/06/18/spring-boot-angular-auth-code-flow), or visit our [Okta Developer Forums](https://devforum.okta.com/). You can also email developers@okta.com if would like to create a support ticket.
+Please post any questions as comments on the [blog post](), or visit our [Okta Developer Forums](https://devforum.okta.com/). You can also email developers@okta.com if would like to create a support ticket.
 
 ## License
 
