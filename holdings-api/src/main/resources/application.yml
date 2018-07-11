@@ -1,0 +1,16 @@
+okta:
+  client:
+    orgUrl: https://dev-158606.oktapreview.com
+    token: XXX
+security:
+    oauth2:
+      client:
+        access-token-uri: https://dev-158606.oktapreview.com/oauth2/default/v1/token
+        user-authorization-uri: https://dev-158606.oktapreview.com/oauth2/default/v1/authorize
+        client-id: 0oafpe2pmd7B18mIe0h7
+        client-secret: DOEjrSZBr2rfYOKdmTjNnah7eAugRszRI0kHap6_
+      resource:
+        user-info-uri: https://dev-158606.oktapreview.com/oauth2/default/v1/userinfo
+spring:
+  profiles:
+    active: @spring.profiles.active@

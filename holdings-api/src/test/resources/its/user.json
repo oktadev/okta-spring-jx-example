@@ -1,0 +1,15 @@
+{
+  "id": "user-id-123",
+  "profile": {
+    "firstName": "Joe",
+    "lastName": "Coder",
+    "email": "Joe.Coder@example.com",
+    "login": "Joe.Coder@example.com",
+    "holdings": "[{\"amount\": \"amount-1\", \"currency\": \"currency-1\", \"crypto\":\"crypto-1\"}, {\"amount\": \"amount-2\", \"currency\": \"currency-2\", \"crypto\":\"crypto-2\"}]"
+  },
+  "_links": {
+    "self": {
+      "href": "https://example.com/api/v1/users/user-id-123"
+    }
+  }
+}

@@ -1,0 +1,5 @@
+okta.client.token=XXX
+okta.client.orgUrl=https://dev-158606.oktapreview.com
+okta.oauth2.issuer=https://dev-158606.oktapreview.com/oauth2/default
+okta.oauth2.clientId=0oaf4aphnpJ3LkY8s0h7
+okta.oauth2.clientSecret=8hHD_uJVwh9wt8Ca_uhNpctZGXHv2N1apTR2v4X0
