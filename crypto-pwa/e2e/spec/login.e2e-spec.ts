@@ -43,7 +43,7 @@ describe('Login', () => {
   it('should log out successfully', () => {
     browser.sleep(1000);
     loginPage.logout();
-    browser.wait(ec.urlContains('/#/login'), 2000);
+    browser.wait(ec.urlContains('/#/login'), 5000);
     expect(loginPage.loginButton.isPresent());
   })
 });
