@@ -4,7 +4,7 @@ This example app shows how to CI/CD a [Spring Boot](https://spring.io/projects/s
 
 <a href="https://jenkins-x.io"><img src="static/jenkins-x.svg" alt="Jenkins X" width="150"></a>
 
-Please read [Add CI/CD to Your Spring Boot App with Jenkins X and Kubernetes]() to learn how to continuously test and deploy this application using Jenkins X.
+Please read [Add CI/CD to Your Spring Boot App with Jenkins X and Kubernetes](https://developer.okta.com/blog/2018/07/11/ci-cd-spring-boot-jenkins-x-kubernetes) to learn how to continuously test and deploy this application using Jenkins X.
 
 **Prerequisites:** [Java 8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) and [Node.js](https://nodejs.org/).
 
@@ -101,7 +101,7 @@ This example uses the following libraries provided by Okta:
 
 ## Help
 
-Please post any questions as comments on the [blog post](), or visit our [Okta Developer Forums](https://devforum.okta.com/). You can also email developers@okta.com if you would like to create a support ticket.
+Please post any questions as comments on the [blog post](https://developer.okta.com/blog/2018/07/11/ci-cd-spring-boot-jenkins-x-kubernetes), or visit our [Okta Developer Forums](https://devforum.okta.com/). You can also email developers@okta.com if you would like to create a support ticket.
 
 ## License
 
