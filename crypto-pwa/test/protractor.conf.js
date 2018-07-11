@@ -6,14 +6,17 @@ exports.config = {
     '../e2e/**/*.e2e-spec.ts'
   ],
   capabilities: {
-    'browserName': 'chrome'
+    'browserName': 'chrome',
+    'chromeOptions': {
+      'args': ['--headless', '--disable-gpu', '--no-sandbox', '--disable-extensions', '--disable-dev-shm-usage']
+    }
   },
   directConnect: true,
-  baseUrl: (process.env.TRAVIS) ? 'http://localhost:8080' : 'http://localhost:8100',
+  baseUrl: (process.env.CI) ? 'http://localhost:' + process.env.PORT : 'http://localhost:8100',
   framework: 'jasmine',
   jasmineNodeOpts: {
     showColors: true,
-    defaultTimeoutInterval: 30000,
+    defaultTimeoutInterval: 60000,
     print: function() {}
   },
   onPrepare() {
