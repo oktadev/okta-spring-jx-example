@@ -310,5 +310,74 @@
                 <spring.profiles.active>prod</spring.profiles.active>
             </properties>
         </profile>
+        <profile>
+            <id>e2e</id>
+            <properties>
+                <!-- Hard-code port instead of using build-helper-maven-plugin. -->
+                <!-- This way, you don't need to add a redirectUri to Okta app. -->
+                <http.port>8000</http.port>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>pre-integration-test</id>
+                                <goals>
+                                    <goal>start</goal>
+                                </goals>
+                                <configuration>
+                                    <arguments>
+                                        <argument>--server.port=${http.port}</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>post-integration-test</id>
+                                <goals>
+                                    <goal>stop</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>com.github.eirslett</groupId>
+                        <artifactId>frontend-maven-plugin</artifactId>
+                        <version>${frontend-maven-plugin.version}</version>
+                        <configuration>
+                            <workingDirectory>../crypto-pwa</workingDirectory>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>webdriver update</id>
+                                <goals>
+                                    <goal>npm</goal>
+                                </goals>
+                                <phase>pre-integration-test</phase>
+                                <configuration>
+                                    <arguments>run e2e-update</arguments>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>ionic e2e</id>
+                                <goals>
+                                    <goal>npm</goal>
+                                </goals>
+                                <phase>integration-test</phase>
+                                <configuration>
+                                    <environmentVariables>
+                                        <PORT>${http.port}</PORT>
+                                        <CI>true</CI>
+                                    </environmentVariables>
+                                    <arguments>run e2e-test</arguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
     </profiles>
 </project>
