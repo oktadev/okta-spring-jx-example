@@ -6,6 +6,10 @@ pipeline {
       ORG               = 'mraible'
       APP_NAME          = 'okta-spring-jx-example'
       CHARTMUSEUM_CREDS = credentials('jenkins-x-chartmuseum')
+      OKTA_CLIENT_TOKEN = credentials('OKTA_CLIENT_TOKEN')
+      OKTA_APP_ID       = credentials('OKTA_APP_ID')
+      E2E_USERNAME      = credentials('E2E_USERNAME')
+      E2E_PASSWORD      = credentials('E2E_PASSWORD')
     }
     stages {
       stage('CI Build and push snapshot') {
@@ -19,19 +23,31 @@ pipeline {
         }
         steps {
           container('maven') {
-            sh "mvn versions:set -DnewVersion=$PREVIEW_VERSION"
-            sh "mvn install"
+            dir ('./holdings-api') {
+              sh "mvn versions:set -DnewVersion=$PREVIEW_VERSION"
+              sh "mvn install -Pprod"
+            }
+
             sh 'export VERSION=$PREVIEW_VERSION && skaffold build -f skaffold.yaml'
-
-
             sh "jx step post build --image $DOCKER_REGISTRY/$ORG/$APP_NAME:$PREVIEW_VERSION"
           }
 
           dir ('./charts/preview') {
-           container('maven') {
-             sh "make preview"
-             sh "jx preview --app $APP_NAME --dir ../.."
-           }
+            container('maven') {
+              sh "make OKTA_CLIENT_TOKEN=\$OKTA_CLIENT_TOKEN preview"
+              sh "jx preview --app $APP_NAME --dir ../.."
+            }
+          }
+
+          // Add redirect URI in Okta
+          dir ('./holdings-api') {
+            container('maven') {
+              sh '''
+                yum install -y jq
+                previewURL=$(jx get preview -o json|jq  -r ".items[].spec | select (.previewGitInfo.name==\\"$CHANGE_ID\\") | .previewGitInfo.applicationURL")
+                mvn exec:java@add-redirect -DappId=$OKTA_APP_ID -DredirectUri=$previewURL
+              '''
+            }
           }
         }
       }
@@ -48,7 +64,9 @@ pipeline {
             sh "jx step git credentials"
             // so we can retrieve the version in later steps
             sh "echo \$(jx-release-version) > VERSION"
-            sh "mvn versions:set -DnewVersion=\$(cat VERSION)"
+            dir ('./holdings-api') {
+              sh "mvn versions:set -DnewVersion=\$(cat ../VERSION)"
+            }
           }
           dir ('./charts/okta-spring-jx-example') {
             container('maven') {
@@ -56,11 +74,11 @@ pipeline {
             }
           }
           container('maven') {
-            sh 'mvn clean deploy'
+            dir ('./holdings-api') {
+              sh 'mvn clean deploy -Pprod'
+            }
 
             sh 'export VERSION=`cat VERSION` && skaffold build -f skaffold.yaml'
-
-
             sh "jx step post build --image $DOCKER_REGISTRY/$ORG/$APP_NAME:\$(cat VERSION)"
           }
         }
@@ -89,8 +107,8 @@ pipeline {
             cleanWs()
         }
         failure {
-            input """Pipeline failed. 
-We will keep the build pod around to help you diagnose any failures. 
+            input """Pipeline failed.
+We will keep the build pod around to help you diagnose any failures.
 
 Select Proceed or Abort to terminate the build pod"""
         }

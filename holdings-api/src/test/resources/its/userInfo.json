@@ -1,0 +1,12 @@
+{
+  "sub": "user-id-123",
+  "name": "Joe Coder",
+  "locale": "en-US",
+  "email": "joe.coder@example.com",
+  "preferred_username": "joe.coder@example.com",
+  "given_name": "Joe",
+  "family_name": "Coder",
+  "zoneinfo": "America/Los_Angeles",
+  "updated_at": 1513360858,
+  "email_verified": true
+}
